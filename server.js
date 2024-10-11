@@ -2,8 +2,9 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Importa o pacote CORS
+const path = require('path');
 const app = express();
-const port = 21096;
+const port = process.env.PORT || 21096; // Adicionei process.env.PORT para compatibilidade com ambientes
 
 // Middleware para habilitar CORS
 app.use(cors());
@@ -16,8 +17,8 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'juunioor.romano@gmail.com', // Seu e-mail
-    pass: 'vinm adep vpto tsod', // Sua senha de e-mail (ou chave de aplicação)
+    user: 'formulario.012@gmail.com', // Seu e-mail
+    pass: 'lpgh xbwh fbjj gbbi', // Sua senha de e-mail (ou chave de aplicação)
   },
 });
 
@@ -36,6 +37,9 @@ function formatarEscolhasHTML(escolhas) {
     }
   }).join('');
 }
+
+// Middleware para servir arquivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota para o envio de e-mail
 app.post('/enviar-email', (req, res) => {
@@ -63,8 +67,8 @@ app.post('/enviar-email', (req, res) => {
 
   // Configuração do e-mail a ser enviado
   const mailOptions = {
-    from: 'juunioor.romano@gmail.com', // Seu endereço de e-mail
-    to: 'junior1991_5@hotmail.com', // E-mail de destino
+    from: 'formulario.012@gmail.com', // Seu endereço de e-mail
+    to: 'central@wecredassessoria.com.br', // E-mail de destino
     subject: 'Dados do Formulário - Simulador WeCred',
     html: `
       <h3>Dados do Formulário Principal:</h3>
@@ -103,6 +107,11 @@ app.post('/enviar-email', (req, res) => {
       res.send('E-mail enviado com sucesso!');
     }
   });
+});
+
+// Rota para a página inicial
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Inicia o servidor
