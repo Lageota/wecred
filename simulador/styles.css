@@ -38,6 +38,7 @@ main {
     margin-top: 80px; /* Para ajustar a distância do cabeçalho */
 }
 
+
 h1 {
     font-size: 2rem;
     color: #333;
@@ -106,6 +107,10 @@ p {
     .option {
         width: 100%;
         max-width: 300px;
+    }
+
+    main {
+        margin-top: 100px; /* Remove qualquer margem superior */
     }
 }
 
