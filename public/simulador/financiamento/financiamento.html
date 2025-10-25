@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador WeCred</title>
+    <link rel="stylesheet" href="./../styles.css">
+    <link rel="stylesheet" href="./../btn.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-32x32.png">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="./../images/logo-preto-wecred.jpg" alt="wecred logo">
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <h1>Financiamento</h1>
+        <p>Quanto tempo pretende comprar o imóvel?</p>
+        
+        <!-- Opções de Crédito Comprar Imóvel -->
+        <div class="options">
+            <!-- Opção 1: Imediatamente -->
+            <a href="./../financiamento/tipo_imovel.html" class="option" title="Já comprei e preciso aprovar o financiamento agora" onclick="capturarEscolha('Imediatamente')">
+                <img src="./../images/imediata.png" alt="Imediatamente">
+                <p>Imediatamente</p>
+            </a>
+
+            <!-- Opção 2: Até 3 Meses -->
+            <a href="./../financiamento/tipo_imovel.html" class="option" onclick="capturarEscolha('Até 3 Meses')">
+                <img src="./../images/3meses.png" alt="Até 3 Meses">
+                <p>Até 3 Meses</p>
+            </a>
+
+            <!-- Opção 3: Acima de 3 Meses -->
+            <a href="./../financiamento/tipo_imovel.html" class="option" onclick="capturarEscolha('Acima de 3 Meses')">
+                <img src="./../images/3mais.png" alt="Acima de 3 Meses">
+                <p>Acima de 3 Meses</p>
+            </a>
+        </div>
+
+         <!-- Botões -->
+         <div class="form-buttons">
+            <a href="./../simulador.html">
+                <button type="button" class="btn btn-secondary">Voltar</button>
+            </a>
+            </div>
+        
+    </main>
+
+    <script>
+        // Função para capturar as escolhas feitas nesta página
+        function capturarEscolha(opcao) {
+            // Recupera as escolhas atuais do sessionStorage
+            let escolhas = JSON.parse(sessionStorage.getItem('escolhas')) || [];
+
+            // Adiciona a nova escolha
+            escolhas.push(opcao);
+
+            // Salva novamente no sessionStorage
+            sessionStorage.setItem('escolhas', JSON.stringify(escolhas));
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

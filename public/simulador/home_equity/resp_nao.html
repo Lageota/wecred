@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador WeCred</title>
+    <link rel="stylesheet" href="./../styles.css">
+    <link rel="stylesheet" href="./../home_equity/form.css">
+    <link rel="stylesheet" href="./../btn.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-32x32.png">
+    <!-- Adiciona Cleave.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="./../images/logo-preto-wecred.jpg" alt="wecred logo">
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <h1>Home Equity</h1>
+        <p>O Imóvel está Financiado ou Quitado?</p>
+        <form action="./../dados/dados.html" class="styled-form">
+            <!-- Adicionar opções Sim e Não -->
+            <div class="form-group">
+                <label>Existe valor em aberto?</label>
+                <div>
+                    <input type="radio" id="sim" name="valor-em-aberto" value="Sim">
+                    <label for="sim">Sim</label>
+                    <input type="radio" id="nao" name="valor-em-aberto" value="Não" checked>
+                    <label for="nao">Não</label>
+                </div>
+            </div>
+            
+            <!-- Campo Valor Aproximado -->
+            <div class="form-group">
+                <label for="valor-aberto">Qual o valor do financiamento em aberto?</label>
+                <input type="text" id="valor-aberto" name="valor-aberto" placeholder="Digite o valor em aberto" disabled>
+            </div>
+           
+            <!-- Botões -->
+            <div class="form-buttons-form">
+                <a href="./../home_equity/averbado.html">
+                    <button type="button" class="btn btn-secondary">Voltar</button>
+                </a>
+                <button type="submit" class="btn btn-primary">Continuar</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Aplica a máscara de moeda no campo "Valor Aproximado"
+            const valorAbertoInput = new Cleave('#valor-aberto', {
+                numeral: true,
+                numeralDecimalMark: ',',
+                delimiter: '.',
+                numeralThousandsGroupStyle: 'thousand',
+                prefix: 'R$ ',
+                noImmediatePrefix: false,
+                rawValueTrimPrefix: true,
+                numeralPositiveOnly: true
+            });
+
+            // Obtendo os radio buttons e o campo de valor
+            const radioSim = document.getElementById('sim');
+            const radioNao = document.getElementById('nao');
+            const valorAberto = document.getElementById('valor-aberto');
+
+            // Evento para habilitar ou desabilitar o campo de valor com base na seleção
+            radioSim.addEventListener('change', function () {
+                valorAberto.disabled = !radioSim.checked;
+                if (!radioSim.checked) valorAberto.value = ''; // Limpa o valor quando não habilitado
+            });
+
+            radioNao.addEventListener('change', function () {
+                valorAberto.disabled = radioNao.checked;
+                if (radioNao.checked) valorAberto.value = ''; // Limpa o valor quando não habilitado
+            });
+
+            // Captura os valores digitados e salva no sessionStorage ao enviar o formulário
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function() {
+                // Capturar os valores dos campos
+                const temValorAberto = radioSim.checked ? "Sim" : "Não";
+                const valorAbertoValue = valorAberto.value;
+
+                // Recupera as escolhas atuais do sessionStorage
+                let escolhas = JSON.parse(sessionStorage.getItem('escolhas')) || [];
+
+                // Adiciona os valores digitáveis
+                escolhas.push({
+                    'Existe valor em aberto': temValorAberto,
+                    'Valor em Aberto': valorAbertoValue,
+                });
+
+                // Salva novamente no sessionStorage
+                sessionStorage.setItem('escolhas', JSON.stringify(escolhas));
+            });
+        });
+    </script>
+
+</body>
+</html>

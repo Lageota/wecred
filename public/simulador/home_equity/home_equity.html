@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador WeCred</title>
+    <link rel="stylesheet" href="./../styles.css">
+    <link rel="stylesheet" href="./../btn.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-32x32.png">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="./../images/logo-preto-wecred.jpg" alt="wecred logo">
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <h1>Home Equity</h1>
+        <p>Qual o perfil do imóvel?</p>
+        
+        <!-- Opções de Crédito Home Equity -->
+        <div class="options">
+            <!-- Opção 1: Casa -->
+            <a href="./../home_equity/objetivo.html" class="option" onclick="capturarEscolha('Casa')">
+                <img src="./../images/casa.png" alt="Casa">
+                <p>Casa</p>
+            </a>
+
+            <!-- Opção 2: Apartamento -->
+            <a href="./../home_equity/objetivo.html" class="option" onclick="capturarEscolha('Apartamento')">
+                <img src="./../images/predio.png" alt="Apartamento">
+                <p>Apartamento</p>
+            </a>
+
+            <!-- Opção 3: Sala Comercial -->
+            <a href="./../home_equity/objetivo.html" class="option" onclick="capturarEscolha('Sala Comercial')">
+                <img src="./../images/comercial.png" alt="Sala Comercial">
+                <p>Sala Comercial</p>
+            </a>
+
+            <!-- Opção 4: Outros -->
+            <a href="./../home_equity/objetivo.html" class="option" onclick="capturarEscolha('Outros')">
+                <img src="./../images/outros.png" alt="Outros">
+                <p>Outros</p>
+            </a>
+        </div>
+
+        <!-- Botão -->
+        <div class="form-buttons"></div>
+            <a href="./../simulador.html">
+                <button type="button" class="btn btn-secondary">Voltar</button>
+            </a>
+        </div>
+
+    </main>
+
+    <script>
+        // Função para capturar as escolhas feitas nesta página
+        function capturarEscolha(opcao) {
+            // Recupera as escolhas atuais do sessionStorage
+            let escolhas = JSON.parse(sessionStorage.getItem('escolhas')) || [];
+
+            // Adiciona a nova escolha
+            escolhas.push(opcao);
+
+            // Salva novamente no sessionStorage
+            sessionStorage.setItem('escolhas', JSON.stringify(escolhas));
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
